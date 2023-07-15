@@ -9,6 +9,7 @@ class HomePage extends Component {
             <div>
                 <HomeHeader />
                 <Specialty />
+                <div style={{ height: '500px' }}></div>
             </div>
         );
     }
