@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Style the body */
+        body {
+            font-family: Arial;
+            padding: 10px;
+            background: #e9d8f4;
+            margin: 0;
+        }
+
+        /* Header/logo Title */
+        .header {
+            padding: 10px;
+            text-align: center;
+            background: white;
+            color: #58257b;
+        }
+
+        .header h1 {
+            font-size: 40px;
+        }
+
+        .header p {
+            font-size: 20px;
+        }
+
+        /* Định dạng navigation bar */
+        .navbar {
+            display: flex;
+            background-color: #58257b;
+        }
+
+        /* Định dạng link điều hướng */
+        .navbar a {
+            color: #f2f2f2;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        /* Thay đổi màu liên kết khi di chuột qua */
+        .navbar a:hover {
+            background-color: #db7093;
+            color: white;
+        }
+
+        /* Column container */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* Tạo hai cột không bằng nhau nằm cạnh nhau */
+        /* Sidebar/Cột trái */
+        .side {
+            flex: 30%;
+            background-color: #f1f1f1;
+            padding: 20px;
+        }
+
+        /* Cột chính */
+        .main {
+            flex: 70%;
+            background-color: white;
+            padding: 20px;
+        }
+
+        /* Hình ảnh tượng trưng */
+        .fakeimg {
+            background-color: #baa1cc;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 10px;
+            text-align: center;
+            background: white;
+            margin-top: 10px;
+        }
+
+        /* Bố cục linh hoạt: các cột xếp chồng lên nhau thay vì cạnh nhau khi màn hình  có chiều rộng dưới 600px */
+        @media screen and (max-width: 600px) {
+
+            .row,
+            .navbar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body> <!-- Header -->
+    <div class="header">
+        <h1>Website Quản Trị Mạng</h1>
+        <p>Kiến thức - Kinh nghiệm - Hỏi đáp</p>
+        <p>Sử dụng <b>flexible</b> layout.</p>
+    </div> <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#">Làng Công nghệ</a>
+        <a href="#">Công nghệ</a>
+        <a href="#">Khoa học</a>
+        <a href="#">Cuộc sống</a>
+    </div> <!-- Nội dung -->
+    <div class="row">
+        <div class="side">
+            <h2>Giới thiệu</h2>
+            <div class="fakeimg" style="height:200px;">Ảnh</div>
+            <p>Quantrimang.com là mạng xã hội về khoa học công nghệ.</p>
+            <h3>Nổi bật</h3>
+            <div class="fakeimg" style="height:60px;">Ảnh</div><br>
+            <div class="fakeimg" style="height:60px;">Ảnh</div><br>
+            <div class="fakeimg" style="height:60px;">Ảnh</div>
+            <h3>Follow Me</h3>
+            <p>Facebook</p>
+            <p>YouTube</p>
+        </div>
+        <div class="main">
+            <h2>Form - Biểu mẫu trong CSS</h2>
+            <h5>Quách Tỉnh, 14/02/2019</h5>
+            <div class="fakeimg" style="height:200px;">Ảnh</div>
+            <p>Form là một phần không thể thiếu trong bất kì loại website nào.</p>
+            <p>Ở bài viết này, Quantrimang.com sẽ hướng dẫn bạn cách xây dựng phần
+                giao diện hiển thị của một biểu mẫu cơ bản. Giao diện này có thể được làm
+                khá đẹp mắt với CSS</p> <br>
+            <h2>Attribute Selector trong CSS</h2>
+            <h5>Quách Tỉnh, 14/02/2019</h5>
+            <div class="fakeimg" style="height:200px;">Ảnh</div>
+            <p>Attribute selector là cách chọn các phần tử bạn muốn định kiểu trong
+                tài liệu HTML dựa vào thuộc tính của một hay nhiều thẻ HTML nào đó.</p>
+            <p>Attribute selector có thể chọn được các đối tượng mà không cần phải
+                khai báo thêm các Class hoặc ID vào trong thẻ HTML và vẫn có thể hướng
+                được đến các thành phần đó, giúp code gọn gàng hơn và mạch lạc hơn.</p>
+        </div>
+    </div> <!-- Footer -->
+    <div class="footer">
+        <h4>Giấy phép số 362/GP-BTTTT. Bộ TT&TT cấp ngày 30/06/2016.</h4>
+    </div>
+</body>
+
+</html>
