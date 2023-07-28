@@ -15,34 +15,34 @@ class HandBook extends Component {
             <div className='section-share section-hand-book'>
                 <div className='section-container'>
                     <div className='section-header'>
-                        <span className='title-section'>Cơ sở y tế nổi bật</span>
+                        <span className='title-section'>Cẩm nang</span>
                         <button className='btn-section'>Tất cả bài viết</button>
                     </div>
                     <div className='section-body'>
                         <Slider {...settings}>
                             <div className="section-customize">
                                 <div className='bg-image section-hand-book'></div>
-                                <div>Bệnh viện Hữu nghị Việt Đức</div>
+                                <div>Bệnh viện Hữu nghị Việt Đức1</div>
                             </div>
                             <div className="section-customize">
                                 <div className='bg-image section-hand-book'></div>
-                                <div>Bệnh viện Hữu nghị Việt Đức</div>
+                                <div>Bệnh viện Hữu nghị Việt Đức2</div>
                             </div>
                             <div className="section-customize">
                                 <div className='bg-image section-hand-book'></div>
-                                <div>Bệnh viện Hữu nghị Việt Đức</div>
+                                <div>Bệnh viện Hữu nghị Việt Đức3</div>
                             </div>
                             <div className="section-customize">
                                 <div className='bg-image section-hand-book'></div>
-                                <div>Bệnh viện Hữu nghị Việt Đức</div>
+                                <div>Bệnh viện Hữu nghị Việt Đức4</div>
                             </div>
                             <div className="section-customize">
                                 <div className='bg-image section-hand-book'></div>
-                                <div>Bệnh viện Hữu nghị Việt Đức</div>
+                                <div>Bệnh viện Hữu nghị Việt Đức5</div>
                             </div>
                             <div className="section-customize">
                                 <div className='bg-image section-hand-book'></div>
-                                <div>Bệnh viện Hữu nghị Việt Đức</div>
+                                <div>Bệnh viện Hữu nghị Việt Đứ6c</div>
                             </div>
                         </Slider>
                     </div>

@@ -5,7 +5,10 @@ import Specialty from './Section/Specialty';
 import MedicalFacility from './Section/MedicalFacility';
 import OutstandingDoctor from './Section/OutstandingDoctor';
 import HandBook from './Section/HandBook';
-import './HomePage.scss'
+import About from './Section/About';
+import HomeFooter from './HomeFooter';
+import './HomePage.scss';
+
 class HomePage extends Component {
 
     render() {
@@ -23,10 +26,13 @@ class HomePage extends Component {
                 <MedicalFacility settings={settings} />
                 <OutstandingDoctor settings={settings} />
                 <HandBook settings={settings} />
-                <div style={{ height: '500px' }}></div>
+                <About />
+                <HomeFooter />
+
             </div>
         );
     }
+
 
 }
 
