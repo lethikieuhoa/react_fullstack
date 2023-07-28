@@ -35,5 +35,19 @@
             "handbook": "Handbooks",
             "manage-handbook": "Manage handbooks"
         }
+    },
+    "manage-user": {
+        "add": "Thêm mới người dùng",
+        "email": "Email",
+        "password": "Password",
+        "first-name": "First name",
+        "last-name": "Last name",
+        "phone-number": "Phone number",
+        "address": "Address",
+        "gender": "Gender",
+        "position": "Position",
+        "roleid": "RoleID",
+        "image": "Avatar",
+        "save": "Save user"
     }
 }

@@ -13,7 +13,17 @@ const deleteUserService = (idInput) => {
     //console.log('id service: ', idInput)
     return axios.delete('/api/delete-user', { data: { id: idInput } });
 }
-const EditUserService = (data) => {
-    return axios.put('/api/edit-user', data);
+const EditUserService = (inputdata) => {
+    return axios.put('/api/edit-user', inputdata);
 }
-export { handleLogiApi, getAllUser, createNewUserService, deleteUserService, EditUserService }
+const getAllcodeService = (inputType) => {
+    return axios.get(`/api/allcode?type=${inputType}`)
+}
+export {
+    handleLogiApi,
+    getAllUser,
+    createNewUserService,
+    deleteUserService,
+    EditUserService,
+    getAllcodeService
+}
