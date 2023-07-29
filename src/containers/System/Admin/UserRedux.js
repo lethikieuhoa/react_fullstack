@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { getAllcodeService } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils';
+import * as actions from '../../../store/actions';;
 class UserRedux extends Component {
 
     constructor(props) {
@@ -13,23 +14,34 @@ class UserRedux extends Component {
     }
 
     async componentDidMount() {
-        try {
-            let res = await getAllcodeService('gender');
-            //console.log(response);
-            if (res && res.errCode === 0) {
-                this.setState({
-                    arrGenders: res.data
-                })
-            }
-        } catch (e) {
-            console.log(e)
-        }
+        console.log('componentDidMount')
+        this.props.getGenderStart();
+        // try {
+        //     let res = await getAllcodeService('gender');
+        //     //console.log(response);
+        //     if (res && res.errCode === 0) {
+        //         this.setState({
+        //             arrGenders: res.data
+        //         })
+        //     }
+        // } catch (e) {
+        //     console.log(e)
+        // }
     }
 
-
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log('componentDidUpdate')
+        if (prevProps.genderRedux !== this.props.genderRedux) {
+            this.setState({
+                arrGenders: this.props.genderRedux
+            })
+        }
+    }
     render() {
+        console.log('render')
         let { language } = this.props;
-        let { arrGenders } = this.state; console.log('render gener', arrGenders)
+        let { arrGenders } = this.state; //console.log('render gener', arrGenders)
+        //console.log('check props from redux', this.props.genderRedux)
         return (
             <div className='user-redux-container'>
                 <div className='title'>User Redux</div>
@@ -113,13 +125,17 @@ class UserRedux extends Component {
 }
 
 const mapStateToProps = state => {
+    // console.log('mapStateToProps', state);
     return {
-        language: state.app.language
+        language: state.app.language,
+        genderRedux: state.admin.genders
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getGenderStart: () => dispatch(actions.fetchGenderStart())
+        //onSaveTask: (task) => dispatch(actions.saveTask(task))
     };
 };
 
