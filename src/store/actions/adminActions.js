@@ -1,5 +1,6 @@
 import actionTypes from './actionTypes';
 import * as userService from '../../services/userService';
+import { toast } from "react-toastify";
 export const fetchGenderStart = () => {
     return async (dispatch, getState) => {
         try {
@@ -78,14 +79,18 @@ export const createNewUser = (dataUser) => {
     return async (dispatch, getState) => {
         try {
             let res = await userService.createNewUserService(dataUser);
-            console.log('check create user redux', res)
+
             if (res && res.errCode === 0) {
+                toast.success("Create a new user succeed!");
                 dispatch(createNewUserSuccess());
+                dispatch(fetchAllUsersStart());
             }
             else {
+                toast.error("Create a new user error!");
                 dispatch(createNewUserFailed(res.errMessage));
             }
         } catch (e) {
+            toast.error("Create a new user error!");
             dispatch(createNewUserFailed('err'));
             console.log(e);
         }
@@ -97,4 +102,60 @@ export const createNewUserSuccess = () => ({
 export const createNewUserFailed = (errMessage) => ({
     type: actionTypes.CREATE_USER_FAILDED,
     errMessage: errMessage
+});
+
+export const fetchAllUsersStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.getAllUser('ALL');
+            if (res && res.errCode === 0) {
+                //toast.success("Fetch all user successed!");
+                dispatch(fetchAllUsersSuccess(res.users.reverse()));
+
+            }
+            else {
+                toast.error("Fetch all user error!");
+                dispatch(fetchAllUsersFailed());
+            }
+        } catch (e) {
+            toast.error("Fetch all user error!");
+            dispatch(fetchPositionFailed());
+            console.log(e);
+        }
+    }
+}
+export const fetchAllUsersSuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_USER_SUCCESS,
+    users: data
+});
+export const fetchAllUsersFailed = () => ({
+    type: actionTypes.FETCH_ALL_USER_FAILDED
+});
+
+export const deleteUser = (idInput) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.deleteUserService(idInput);
+
+            if (res && res.errCode === 0) {
+                toast.success("Delete user succeed!");
+                dispatch(deleteUserSuccess());
+                dispatch(fetchAllUsersStart());
+            }
+            else {
+                toast.error("Delete user error!");
+                dispatch(deleteUserFailed());
+            }
+        } catch (e) {
+            toast.error("Delete user error!");
+            dispatch(deleteUserFailed('err'));
+            console.log(e);
+        }
+    }
+}
+export const deleteUserSuccess = () => ({
+    type: actionTypes.DELETE_USER_SUCCESS
+});
+export const deleteUserFailed = () => ({
+    type: actionTypes.DELETE_USER_FAILDED
 });
