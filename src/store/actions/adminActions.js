@@ -1,10 +1,10 @@
 import actionTypes from './actionTypes';
-import { getAllcodeService } from '../../services/userService';
+import * as userService from '../../services/userService';
 export const fetchGenderStart = () => {
     return async (dispatch, getState) => {
         try {
             dispatch({ type: actionTypes.FETCH_GENDER_START });
-            let res = await getAllcodeService('gender');
+            let res = await userService.getAllcodeService('gender');
             //console.log('check action', res)
             if (res && res.errCode === 0) {
                 dispatch(fetchGenderSuccess(res.data));
@@ -23,12 +23,12 @@ export const fetchGenderSuccess = (genderData) => ({
     data: genderData
 });
 export const fetchGenderFailed = () => ({
-    type: actionTypes.FETCH_GENDER_FAIDED
+    type: actionTypes.FETCH_GENDER_FAILDED
 });
 export const fetchPositionStart = () => {
     return async (dispatch, getState) => {
         try {
-            let res = await getAllcodeService('position');
+            let res = await userService.getAllcodeService('position');
             //console.log('check action', res)
             if (res && res.errCode === 0) {
                 dispatch(fetchPositionSuccess(res.data));
@@ -47,12 +47,12 @@ export const fetchPositionSuccess = (postionData) => ({
     data: postionData
 });
 export const fetchPositionFailed = () => ({
-    type: actionTypes.FETCH_POSITION_FAIDED
+    type: actionTypes.FETCH_POSITION_FAILDED
 });
 export const fetchRoleStart = () => {
     return async (dispatch, getState) => {
         try {
-            let res = await getAllcodeService('role');
+            let res = await userService.getAllcodeService('role');
             //console.log('check action', res)
             if (res && res.errCode === 0) {
                 dispatch(fetchRoleSuccess(res.data));
@@ -71,5 +71,30 @@ export const fetchRoleSuccess = (roleData) => ({
     data: roleData
 });
 export const fetchRoleFailed = () => ({
-    type: actionTypes.FETCH_ROLE_FAIDED
+    type: actionTypes.FETCH_ROLE_FAILDED
+});
+
+export const createNewUser = (dataUser) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.createNewUserService(dataUser);
+            console.log('check create user redux', res)
+            if (res && res.errCode === 0) {
+                dispatch(createNewUserSuccess());
+            }
+            else {
+                dispatch(createNewUserFailed(res.errMessage));
+            }
+        } catch (e) {
+            dispatch(createNewUserFailed('err'));
+            console.log(e);
+        }
+    }
+}
+export const createNewUserSuccess = () => ({
+    type: actionTypes.CREATE_USER_SUCCESS
+});
+export const createNewUserFailed = (errMessage) => ({
+    type: actionTypes.CREATE_USER_FAILDED,
+    errMessage: errMessage
 });
