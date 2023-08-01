@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { LANGUAGES, CRUD_ACTIONS } from '../../../utils';
+import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
 import * as actions from '../../../store/actions';
 import './UserRedux.scss';
 import Lightbox from 'react-image-lightbox';
@@ -93,14 +93,16 @@ class UserRedux extends Component {
             })
         }
     }
-    handleOnChangeImage = (event) => {
+    handleOnChangeImage = async (event) => {
         let data = event.target.files;
         let file = data[0];
         if (file) {
+            let base64 = await CommonUtils.getBase64(file);
+            //console.log('handleOnChangeImage', base64)
             let objectUrl = URL.createObjectURL(file);//lay duong link
             this.setState({
                 previewImageURL: objectUrl,
-                avatar: file
+                avatar: base64
             })
         }
     }
@@ -116,8 +118,8 @@ class UserRedux extends Component {
         let { action } = this.state;
         //fire create from redux
         if (action === CRUD_ACTIONS.CREATE) {
+            //console.log('handleSaveUser', this.state); return;
             this.props.createNewUser({
-
                 email: this.state.email,
                 password: this.state.password,//data.phonenumber
                 firstName: this.state.firstName,
@@ -126,8 +128,10 @@ class UserRedux extends Component {
                 phoneNumber: this.state.phoneNumber,
                 gender: this.state.gender,
                 roleId: this.state.role,
-                positionId: this.state.position
+                positionId: this.state.position,
+                avatar: this.state.avatar
             });
+
         }
         else {
             // //fire edit from redux
@@ -140,7 +144,8 @@ class UserRedux extends Component {
                 phoneNumber: this.state.phoneNumber,
                 gender: this.state.gender,
                 roleId: this.state.role,
-                positionId: this.state.position
+                positionId: this.state.position,
+                avatar: this.state.avatar
             });
         }
 
@@ -151,9 +156,15 @@ class UserRedux extends Component {
             'phoneNumber', 'address', 'gender', 'position', 'role', 'avatar']
         for (let i = 0; i < arrCheck.length; i++) {
             if (!this.state[arrCheck[i]]) {
-                isValid = false;
-                alert('This input is required: ' + arrCheck[i])
-                break;
+                if (arrCheck[i] !== 'avatar') {
+                    isValid = false;
+                    alert('This input is required: ' + arrCheck[i] || (arrCheck[i] === 'avatar' && this.state.action === CRUD_ACTIONS.CREATE));
+                    break;
+                }
+                //if (arrCheck[i] !== 'avatar') {
+                //   alert('This input is required: ' + arrCheck[i]);
+                // }
+                // 
             }
         }
         return isValid;
@@ -166,7 +177,11 @@ class UserRedux extends Component {
         })
     }
     handleEditUserFromParent = (user) => {
-        console.log('aaa', user)
+        //console.log('aaa', user)
+        let imageBase64 = '';
+        if (user.image) {
+            imageBase64 = new Buffer.from(user.image, 'base64').toString('binary');
+        }
         this.setState({
             userEditid: user.id,
             email: user.email,
@@ -179,6 +194,7 @@ class UserRedux extends Component {
             role: user.roleId,
             position: user.positionId,
             avatar: '',
+            previewImageURL: imageBase64,
             action: CRUD_ACTIONS.EDIT
         })
     }
