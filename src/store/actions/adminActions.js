@@ -149,7 +149,7 @@ export const deleteUser = (idInput) => {
         } catch (e) {
             toast.error("Delete user error!");
             dispatch(deleteUserFailed('err'));
-            console.log(e);
+            //console.log(e);
         }
     }
 }
@@ -158,4 +158,33 @@ export const deleteUserSuccess = () => ({
 });
 export const deleteUserFailed = () => ({
     type: actionTypes.DELETE_USER_FAILDED
+});
+//edit
+export const editUser = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            //console.log('adminaction', data);
+            let res = await userService.EditUserService(data);
+
+            if (res && res.errCode === 0) {
+                toast.success("edit user succeed!");
+                dispatch(editUserSuccess());
+                dispatch(fetchAllUsersStart());
+            }
+            else {
+                toast.error("edit user error!");
+                dispatch(editUserFailed());
+            }
+        } catch (e) {
+            toast.error("edit user error!");
+            dispatch(editUserFailed('err'));
+            // console.log(e);
+        }
+    }
+}
+export const editUserSuccess = () => ({
+    type: actionTypes.EDIT_USER_SUCCESS
+});
+export const editUserFailed = () => ({
+    type: actionTypes.EDIT_USER_FAILDED
 });
