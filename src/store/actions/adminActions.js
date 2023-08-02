@@ -108,6 +108,7 @@ export const fetchAllUsersStart = () => {
     return async (dispatch, getState) => {
         try {
             let res = await userService.getAllUser('ALL');
+
             if (res && res.errCode === 0) {
                 //toast.success("Fetch all user successed!");
                 dispatch(fetchAllUsersSuccess(res.users.reverse()));
@@ -188,3 +189,30 @@ export const editUserSuccess = () => ({
 export const editUserFailed = () => ({
     type: actionTypes.EDIT_USER_FAILDED
 });
+export const fetchTopDoctor = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.getDoctorHomeService('');
+            if (res && res.errCode === 0) {
+                //toast.success("Fetch all user successed!");
+                dispatch({
+                    type: actionTypes.FETCH_TOP_DOCTOR_SUCCESS,
+                    data: res.data
+                });
+
+            }
+            else {
+                toast.error("Fetch top doctor error!");
+                dispatch({
+                    type: actionTypes.FETCH_TOP_DOCTOR_FAILDED
+                });
+            }
+        } catch (e) {
+            toast.error("Fetch top doctor error!");
+            dispatch({
+                type: actionTypes.FETCH_TOP_DOCTOR_FAILDED
+            });
+            console.log(e);
+        }
+    }
+}

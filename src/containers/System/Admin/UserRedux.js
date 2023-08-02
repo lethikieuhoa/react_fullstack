@@ -57,21 +57,21 @@ class UserRedux extends Component {
             let genders = this.props.genderRedux;
             this.setState({
                 arrGenders: genders,
-                gender: genders && genders.length > 0 ? genders[0].key : ''
+                gender: genders && genders.length > 0 ? genders[0].keyMap : ''
             })
         }
         if (prevProps.positionRedux !== this.props.positionRedux) {
             let positions = this.props.positionRedux;
             this.setState({
                 arrPositions: positions,
-                position: positions && positions.length > 0 ? positions[0].key : ''
+                position: positions && positions.length > 0 ? positions[0].keyMap : ''
             })
         }
         if (prevProps.roleRedux !== this.props.roleRedux) {
             let roles = this.props.roleRedux;
             this.setState({
                 arrRoles: roles,
-                role: roles && roles.length > 0 ? roles[0].key : ''
+                role: roles && roles.length > 0 ? roles[0].keyMap : ''
             })
         }
         if (prevProps.listUsers !== this.props.listUsers) {
@@ -85,9 +85,9 @@ class UserRedux extends Component {
                 lastName: '',
                 phoneNumber: '',
                 address: '',
-                gender: genders && genders.length > 0 ? genders[0].key : '',
-                position: positions && positions.length > 0 ? positions[0].key : '',
-                role: roles && roles.length > 0 ? roles[0].key : '',
+                gender: genders && genders.length > 0 ? genders[0].keyMap : '',
+                position: positions && positions.length > 0 ? positions[0].keyMap : '',
+                role: roles && roles.length > 0 ? roles[0].keyMap : '',
                 avatar: '',
                 action: CRUD_ACTIONS.CREATE,
                 previewImageURL: ''
@@ -181,6 +181,7 @@ class UserRedux extends Component {
         //console.log('aaa', user)
         let imageBase64 = '';
         if (user.image) {
+            //giai ma base64 de lay lai link hinh anh hien thi ra ben ngoai
             imageBase64 = new Buffer.from(user.image, 'base64').toString('binary');
         }
         this.setState({
@@ -269,7 +270,7 @@ class UserRedux extends Component {
                                     {arrGenders && arrGenders.length > 0 &&
                                         arrGenders.map((item, index) => {
                                             return (
-                                                <option key={item.id} value={item.key}>{LANGUAGES.EN === language ? item.valueEn : item.valueVi}</option>
+                                                <option key={item.id} value={item.keyMap}>{LANGUAGES.EN === language ? item.valueEn : item.valueVi}</option>
                                             )
                                         })
                                     }
@@ -286,7 +287,7 @@ class UserRedux extends Component {
                                     {arrPositions && arrPositions.length > 0 &&
                                         arrPositions.map((item, index) => {
                                             return (
-                                                <option key={item.id} value={item.key}>{LANGUAGES.EN === language ? item.valueEn : item.valueVi}</option>
+                                                <option key={item.id} value={item.keyMap}>{LANGUAGES.EN === language ? item.valueEn : item.valueVi}</option>
                                             )
                                         })
                                     }
@@ -302,7 +303,7 @@ class UserRedux extends Component {
                                     {arrRoles && arrRoles.length > 0 &&
                                         arrRoles.map((item, index) => {
                                             return (
-                                                <option key={item.id} value={item.key} >{LANGUAGES.EN === language ? item.valueEn : item.valueVi}</option>
+                                                <option key={item.id} value={item.keyMap} >{LANGUAGES.EN === language ? item.valueEn : item.valueVi}</option>
                                             )
                                         })
                                     }

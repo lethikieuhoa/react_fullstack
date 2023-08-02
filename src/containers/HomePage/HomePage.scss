@@ -33,7 +33,7 @@
                 }
 
                 &.section-outstanding-doctor {
-                    background: url('../../assets/outstandingdoctor/anh-dai-dien-bs.jpg') center center no-repeat;
+                    //background: url('../../assets/outstandingdoctor/anh-dai-dien-bs.jpg') center center no-repeat;
                 }
 
                 &.section-hand-book {
@@ -109,6 +109,10 @@
                 &:hover {
                     background: #eceaea !important;
                 }
+            }
+
+            .slick-disabled {
+                display: none !important;
             }
 
             .slick-prev::before,
