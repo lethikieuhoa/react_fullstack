@@ -55,5 +55,10 @@
         "out-standing-doctor": "Bác sĩ nổi bật tuần qua",
         "more-infor": "Xem thêm",
         "search": "Tìm kiếm"
+    },
+    "manage-doctor": {
+        "manage-doctor-title": "Tạo thêm thông tin doctor",
+        "select-doctor": "Chọn bác sĩ",
+        "intro-infor": "Thông tin giới thiệu"
     }
 }

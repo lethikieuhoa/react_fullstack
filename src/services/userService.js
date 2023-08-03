@@ -22,6 +22,12 @@ const getAllcodeService = (inputType) => {
 const getDoctorHomeService = (limit) => {
     return axios.get(`/api/top-doctor-home?limit=${limit}`)
 }
+const getAllDoctorService = () => {
+    return axios.get(`/api/get-all-doctor`)
+}
+const saveDetailDoctor = (data) => {
+    return axios.post(`/api/save-infor-doctor`, data)
+}
 export {
     handleLogiApi,
     getAllUser,
@@ -29,5 +35,7 @@ export {
     deleteUserService,
     EditUserService,
     getAllcodeService,
-    getDoctorHomeService
+    getDoctorHomeService,
+    getAllDoctorService,
+    saveDetailDoctor,
 }

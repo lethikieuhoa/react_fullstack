@@ -216,3 +216,56 @@ export const fetchTopDoctor = () => {
         }
     }
 }
+export const fetchAllDoctor = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.getAllDoctorService('');
+            if (res && res.errCode === 0) {
+                //toast.success("Fetch all user successed!");
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DOCTOR_SUCCESS,
+                    data: res.data
+                });
+
+            }
+            else {
+                toast.error("Fetch all doctor error!");
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DOCTOR_FAILDED
+                });
+            }
+        } catch (e) {
+            toast.error("Fetch all doctor error!");
+            dispatch({
+                type: actionTypes.FETCH_ALL_DOCTOR_FAILDED
+            });
+            console.log(e);
+        }
+    }
+}
+export const saveDetailDoctor = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.saveDetailDoctor(data);
+            if (res && res.errCode === 0) {
+                toast.success("Save infor detail doctor successed!");
+                dispatch({
+                    type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_SUCCESS
+                });
+
+            }
+            else {
+                toast.error("Save infor detail doctor error!");
+                dispatch({
+                    type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_FAILDED
+                });
+            }
+        } catch (e) {
+            toast.error("Save infor detail doctor error!");
+            dispatch({
+                type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_FAILDED
+            });
+            console.log(e);
+        }
+    }
+}
