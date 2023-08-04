@@ -31,6 +31,9 @@ const saveDetailDoctor = (data) => {
 const getDetailInforDoctor = (inputId) => {
     return axios.get(`/api/get-detail-doctor-by-id?id=${inputId}`);
 }
+const getMarkDownByIdDoctor = (idDoctor) => {
+    return axios.get(`/api/get-markdown-by-id-doctor?idDoctor=${idDoctor}`);
+}
 export {
     handleLogiApi,
     getAllUser,
@@ -41,5 +44,6 @@ export {
     getDoctorHomeService,
     getAllDoctorService,
     saveDetailDoctor,
-    getDetailInforDoctor
+    getDetailInforDoctor,
+    getMarkDownByIdDoctor
 }

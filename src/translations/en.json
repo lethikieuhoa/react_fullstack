@@ -59,6 +59,8 @@
     "manage-doctor": {
         "manage-doctor-title": "Create information of doctor",
         "select-doctor": "Choose a doctor",
-        "intro-infor": "Introductory information"
+        "intro-infor": "Introductory information",
+        "edit-info": "Update information",
+        "create-info": "Create information"
     }
 }

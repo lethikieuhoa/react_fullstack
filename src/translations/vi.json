@@ -59,6 +59,8 @@
     "manage-doctor": {
         "manage-doctor-title": "Tạo thêm thông tin doctor",
         "select-doctor": "Chọn bác sĩ",
-        "intro-infor": "Thông tin giới thiệu"
+        "intro-infor": "Thông tin giới thiệu",
+        "edit-info": "Lưu thông tin",
+        "create-info": "Tạo thông tin"
     }
 }
