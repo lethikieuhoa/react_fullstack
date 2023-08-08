@@ -5,16 +5,18 @@ import './ManageSchedule.scss';
 import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import * as actions from '../../../store/actions';
-import { LANGUAGES } from '../../../utils';
+import { LANGUAGES, dateFormat } from '../../../utils';
 import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
 import FormattedDate from '../../../components/Formating/FormattedDate';
+import { toast } from "react-toastify";
+import _ from 'lodash';
 class ManageSchedule extends Component {
     constructor(props) {
         super(props);
         this.state = {
             allDoctors: [],
-            selectedOption: '',
+            selectedDocter: '',
             currentDate: '',
             allScheduleTime: []
         }
@@ -30,14 +32,21 @@ class ManageSchedule extends Component {
             //console.log('---', dataSelect);
             this.setState({
                 allDoctors: dataSelect,
-                selectedOption: ''
+                selectedDocter: ''
             })
         }
         if (prevProps.allScheduleTime !== this.props.allScheduleTime) {
-
-
+            let data = this.props.allScheduleTime;
+            if (data && data.length > 0) {
+                // data = data.map((item, index) => {
+                //     item.isSelected = false;
+                //     return item
+                // })
+                data = data.map(item => ({ ...item, isSelected: false }))
+            }
+            console.log('--------', data)
             this.setState({
-                allScheduleTime: this.props.allScheduleTime
+                allScheduleTime: data
             })
         }
 
@@ -57,17 +66,65 @@ class ManageSchedule extends Component {
         }
         return rs;
     }
-    handleChangeSelected = (selectedOption) => {
-        console.log(selectedOption)
+    handleChangeSelected = (selectedDocter) => {
+        console.log(selectedDocter)
+        this.setState({
+            selectedDocter: selectedDocter
+        })
     };
     handleOnChangeDatePicker = (date) => {
         this.setState({
             currentDate: date[0]
         })
     }
+    handleClickBtnTime = (time) => {
+        console.log('click time', time)
+        //time.isSelected = true;
+        let allScheduleTime = this.state.allScheduleTime;
+        if (allScheduleTime && allScheduleTime.length > 0) {
+            allScheduleTime = allScheduleTime.map(item => {
+                if (item.id === time.id) item.isSelected = !item.isSelected
+                return item;
+            })
+            this.setState({
+                allScheduleTime: allScheduleTime
+            })
+        }
+        console.log('click time', allScheduleTime)
+    }
+    handleSaveSchedule = () => {
+        let { allScheduleTime, selectedDocter, currentDate } = this.state;
+        let result = [];
+        if (!currentDate) {
+            toast.error("Invalid date!"); return;
+        }
+        if (selectedDocter && _.isEmpty(selectedDocter)) {
+            toast.error("Invalid selected docter!"); return;
+        }
+        let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        if (allScheduleTime && allScheduleTime.length > 0) {
+            let selectedTime = allScheduleTime.filter(item => item.isSelected === true);
+            if (selectedTime && selectedTime.length > 0) {
+                selectedTime.map(schedule => {
+                    let ob = {};
+                    ob.doctorId = selectedDocter.value;
+                    ob.date = formatedDate;
+                    ob.time = schedule.keyMap;
+                    result.push(ob);
+                })
+
+
+            }
+            else {
+                toast.error("Invalid selected time!"); return;
+            }
+        }
+        console.log('check result', result)
+    }
     render() {
         const { isLoggedIn, language } = this.props;
-        let { selectedOption, allScheduleTime } = this.state;
+        let { selectedDocter, allScheduleTime } = this.state;
+        console.log('render', allScheduleTime)
         return (
             <div className='manage-schedule-container'>
                 <div className='m-s-title'>
@@ -78,7 +135,7 @@ class ManageSchedule extends Component {
                         <div className="col-6 form-group">
                             <label><FormattedMessage id="manage-schedule.choose-doctor" /></label>
                             <Select
-                                value={selectedOption}
+                                value={selectedDocter}
                                 onChange={this.handleChangeSelected}
                                 options={this.state.allDoctors}
                             />
@@ -95,15 +152,23 @@ class ManageSchedule extends Component {
                             {allScheduleTime && allScheduleTime.length &&
                                 allScheduleTime.map((item, index) => {
                                     return (
-                                        <button className='btn btn-schedule' key={index}>
+                                        <button className={item.isSelected === true ? "btn btn-schedule active" : "btn btn-schedule"}
+                                            key={index}
+                                            onClick={() => this.handleClickBtnTime(item)}>
                                             {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+
                                         </button>
                                     )
                                 })
                             }
                         </div>
                         <div className="col-12">
-                            <button className="btn btn-primary btn-save-schedule"><FormattedMessage id="manage-schedule.save-infor" /></button>
+                            <button
+                                className="btn btn-primary btn-save-schedule"
+                                onClick={this.handleSaveSchedule}
+                            >
+                                <FormattedMessage id="manage-schedule.save-infor" />
+                            </button>
                         </div>
                     </div>
 
