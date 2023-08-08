@@ -11,6 +11,7 @@ import moment from 'moment';
 import FormattedDate from '../../../components/Formating/FormattedDate';
 import { toast } from "react-toastify";
 import _ from 'lodash';
+import { bulkCreateSchedule } from '../../../services/userService';
 class ManageSchedule extends Component {
     constructor(props) {
         super(props);
@@ -92,7 +93,7 @@ class ManageSchedule extends Component {
         }
         console.log('click time', allScheduleTime)
     }
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let { allScheduleTime, selectedDocter, currentDate } = this.state;
         let result = [];
         if (!currentDate) {
@@ -101,7 +102,7 @@ class ManageSchedule extends Component {
         if (selectedDocter && _.isEmpty(selectedDocter)) {
             toast.error("Invalid selected docter!"); return;
         }
-        let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        let formatedDate = new Date(currentDate).getTime();
         if (allScheduleTime && allScheduleTime.length > 0) {
             let selectedTime = allScheduleTime.filter(item => item.isSelected === true);
             if (selectedTime && selectedTime.length > 0) {
@@ -109,7 +110,7 @@ class ManageSchedule extends Component {
                     let ob = {};
                     ob.doctorId = selectedDocter.value;
                     ob.date = formatedDate;
-                    ob.time = schedule.keyMap;
+                    ob.timeType = schedule.keyMap;
                     result.push(ob);
                 })
 
@@ -119,7 +120,13 @@ class ManageSchedule extends Component {
                 toast.error("Invalid selected time!"); return;
             }
         }
-        console.log('check result', result)
+        console.log('check result', result);
+        let res = await bulkCreateSchedule({
+            arrSchedule: result,
+            doctorId: selectedDocter.value,
+            formatedDate: formatedDate
+        });
+        console.log('check bulkCreateSchedule', res);
     }
     render() {
         const { isLoggedIn, language } = this.props;

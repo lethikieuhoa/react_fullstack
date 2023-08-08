@@ -34,6 +34,9 @@ const getDetailInforDoctor = (inputId) => {
 const getMarkDownByIdDoctor = (idDoctor) => {
     return axios.get(`/api/get-markdown-by-id-doctor?idDoctor=${idDoctor}`);
 }
+const bulkCreateSchedule = (data) => {
+    return axios.post(`/api/bulk-create-schedule`, data);
+}
 export {
     handleLogiApi,
     getAllUser,
@@ -45,5 +48,6 @@ export {
     getAllDoctorService,
     saveDetailDoctor,
     getDetailInforDoctor,
-    getMarkDownByIdDoctor
+    getMarkDownByIdDoctor,
+    bulkCreateSchedule
 }
