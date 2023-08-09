@@ -39,7 +39,8 @@
     .schedule-doctor {
         padding: 10px 100px;
         display: flex;
-        height: 200px;
+        //height: 100%;
+        min-height: 200px;
 
         .content-left {
             width: 55%;
