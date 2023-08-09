@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './DoctorSchedule.scss';
-import moment from 'moment';
+import moment, { lang } from 'moment';
 //import localization from 'moment/locate/vi';//su dung tieng viet
 import vi from "moment/locale/vi";
 import { LANGUAGES } from '../../../utils';
@@ -10,7 +10,8 @@ class DoctorSchedule extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            allDays: []
+            allDays: [],
+            allAvalableTime: []
         }
     }
     async componentDidMount() {
@@ -24,12 +25,15 @@ class DoctorSchedule extends Component {
             this.setStateAllDays(this.props.language);
         }
     }
+    capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     setStateAllDays = async (language) => {
         let arrDate = [];
         for (let i = 0; i < 7; i++) {
             let Object = {}; //console.log(language)
             if (language === LANGUAGES.VI) {
-                Object.label = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                Object.label = this.capitalizeFirstLetter(moment(new Date()).add(i, 'days').format('dddd - DD/MM'));
             }
             else {
                 Object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM');
@@ -49,12 +53,19 @@ class DoctorSchedule extends Component {
             let doctorId = this.props.doctorIdFromParent;
             let date = event.target.value
             let res = await getScheduleByDate(doctorId, date);
+
+            if (res && res.errCode === 0) {
+                this.setState({
+                    allAvalableTime: res.data ? res.data : []
+                })
+            }
             console.log('check res schedule', res)
         }
         console.log('event.target.value', event.target.value);
     }
     render() {
-        let { allDays } = this.state; console.log('allDays', allDays)
+        let { allDays, allAvalableTime } = this.state; console.log('allDays', allDays);
+        let { language } = this.props;
         return (
             <div className='doctor-schedule-container'>
                 <div className='all-schedule'>
@@ -64,15 +75,26 @@ class DoctorSchedule extends Component {
                             return (
                                 <option value={item.value} key={index}>{item.label}</option>
                             )
-
                         })}
-
-
-
                     </select>
                 </div>
                 <div className='all-available'>
+                    <div className='text-calendar'>
+                        <i className="fas fa-calendar-alt"><span>Lịch khám</span></i>
 
+                    </div>
+                    <div className='time-content'>
+                        {allAvalableTime && allAvalableTime.length > 0 ?
+                            allAvalableTime.map((item, index) => {
+                                let timeDisplay = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
+                                return (
+                                    <button key={index}>{timeDisplay}</button>
+                                );
+                            })
+                            :
+                            <div>Không có lịch hẹn trong thời gian này. Vui lòng chọn thời gian khác!</div>
+                        }
+                    </div>
                 </div>
             </div >
 
