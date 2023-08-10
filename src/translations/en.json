@@ -64,7 +64,13 @@
         "select-doctor": "Choose a doctor",
         "intro-infor": "Introductory information",
         "edit-info": "Update information",
-        "create-info": "Create information"
+        "create-info": "Create information",
+        "choose-price": "Price",
+        "choose-payment": "Payment",
+        "choose-provice": "Provice",
+        "clinic-name": "Name clinic",
+        "address-clinic": "Address clinic",
+        "note": "Note"
     },
     "manage-schedule": {
         "title": "Manage doctor's examination plan",
