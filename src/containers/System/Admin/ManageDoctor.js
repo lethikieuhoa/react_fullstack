@@ -9,7 +9,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
 import { CRUD_ACTIONS, LANGUAGES } from '../../../utils';
-import { getMarkDownByIdDoctor } from '../../../services/userService';
+import { getMarkDownByIdDoctor, getdoctorInforByIdDoctor } from '../../../services/userService';
 
 
 // Register plugins if required
@@ -91,8 +91,9 @@ class ManageDoctor extends Component {
         //console.log('selectedOption', selectedOption, '--', name);
         this.setState({ selectedOption });
         // console.log('selectedOption.value', selectedOption.value)
+
         let res = await getMarkDownByIdDoctor(selectedOption.value);
-        // console.log('-', res)
+
         if (res && res.errCode === 0 && res.data) {
             let markdown = res.data;
             this.setState({
@@ -109,6 +110,47 @@ class ManageDoctor extends Component {
                 contentHTML: '',
                 description: '',
                 hasOldData: false,
+
+            })
+        }
+        let resDocInfor = await getdoctorInforByIdDoctor(selectedOption.value);
+
+        console.log('resDocInfor', resDocInfor);
+        console.log('resDocInfor', this.state);
+        if (resDocInfor && resDocInfor.errCode === 0 && resDocInfor.data) {
+            let doctorInfor = resDocInfor.data;
+            let language = this.props.language;
+            let labelPrice = language === LANGUAGES.VI ? doctorInfor.priceData.valueVi : doctorInfor.priceData.valueEn;
+
+            let selectPrice = {};
+            selectPrice.label = labelPrice;
+            selectPrice.value = doctorInfor.priceId;
+
+            let labelPayment = language === LANGUAGES.VI ? doctorInfor.paymentData.valueVi : doctorInfor.paymentData.valueEn;
+            let selectPayment = {};
+            selectPayment.label = labelPayment;
+            selectPayment.value = doctorInfor.paymentId;
+
+            let labelProvince = language === LANGUAGES.VI ? doctorInfor.provinceData.valueVi : doctorInfor.provinceData.valueEn;
+            let selectProvince = {};
+            selectProvince.label = labelProvince;
+            selectProvince.value = doctorInfor.provinceId;
+            this.setState({
+                selectedPrice: selectPrice,
+                selectedPayment: selectPayment,
+                selectedProvice: selectProvince,
+                nameClinic: doctorInfor.nameClinic,
+                addressClinic: doctorInfor.addressClinic,
+                note: doctorInfor.note
+
+            }, () => {
+                console.log('selectedPrice', selectPrice);
+                console.log('selectPayment', selectPayment);
+                console.log('selectedPrice', selectProvince);
+            })
+        }
+        else {
+            this.setState({
                 selectedPrice: '',
                 selectedPayment: '',
                 selectedProvice: '',

@@ -31,6 +31,9 @@ const saveDetailDoctor = (data) => {
 const getDetailInforDoctor = (inputId) => {
     return axios.get(`/api/get-detail-doctor-by-id?id=${inputId}`);
 }
+const getdoctorInforByIdDoctor = (idDoctor) => {
+    return axios.get(`/api/get-doctor-infor-by-id-doctor?idDoctor=${idDoctor}`);
+}
 const getMarkDownByIdDoctor = (idDoctor) => {
     return axios.get(`/api/get-markdown-by-id-doctor?idDoctor=${idDoctor}`);
 }
@@ -53,5 +56,6 @@ export {
     getDetailInforDoctor,
     getMarkDownByIdDoctor,
     bulkCreateSchedule,
-    getScheduleByDate
+    getScheduleByDate,
+    getdoctorInforByIdDoctor
 }
