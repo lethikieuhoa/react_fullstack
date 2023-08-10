@@ -94,9 +94,9 @@ class DoctorSchedule extends Component {
                     allAvalableTime: res.data ? res.data : []
                 })
             }
-            console.log('check res schedule', res)
+            //console.log('check res schedule', res)
         }
-        console.log('event.target.value', event.target.value);
+        //console.log('event.target.value', event.target.value);
     }
     render() {
         let { allDays, allAvalableTime } = this.state; console.log('allDays', allDays);

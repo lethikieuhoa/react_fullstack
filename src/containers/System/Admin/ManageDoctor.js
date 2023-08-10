@@ -115,8 +115,8 @@ class ManageDoctor extends Component {
         }
         let resDocInfor = await getdoctorInforByIdDoctor(selectedOption.value);
 
-        console.log('resDocInfor', resDocInfor);
-        console.log('resDocInfor', this.state);
+        //console.log('resDocInfor', resDocInfor);
+        //console.log('resDocInfor', this.state);
         if (resDocInfor && resDocInfor.errCode === 0 && resDocInfor.data) {
             let doctorInfor = resDocInfor.data;
             let language = this.props.language;

@@ -22,10 +22,14 @@
 
     .content-down {
         .short-infor {
-            span {
+            .show-price {
                 cursor: pointer;
                 color: #45c3d2;
             }
+        }
+
+        .currency {
+            margin: 0 5px;
         }
 
         .title-price {
