@@ -2,9 +2,10 @@
     height: 70px;
     width: 100%;
     background: white;
-    position: sticky;
+    position: fixed; //sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 1px solid #ccc;
 
     .home-header-content {
         width: 100%;
