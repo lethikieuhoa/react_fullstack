@@ -19,8 +19,8 @@ class DoctorSchedule extends Component {
         }
     }
     async componentDidMount() {
-        console.log('moment vi', moment(new Date()).format('dddd - DD/MM'));//thứ - ngày tháng
-        console.log('moment en', moment(new Date()).locale('en').format('ddd - DD/MM'));
+        // console.log('moment vi', moment(new Date()).format('dddd - DD/MM'));//thứ - ngày tháng
+        //console.log('moment en', moment(new Date()).locale('en').format('ddd - DD/MM'));
         let allDays = this.getArrDays(this.props.language);
         this.setState({
             allDays: allDays
@@ -114,7 +114,7 @@ class DoctorSchedule extends Component {
         })
     }
     render() {
-        let { allDays, allAvalableTime } = this.state; console.log('allDays', allDays);
+        let { allDays, allAvalableTime } = this.state; //console.log('allDays', allDays);
         let { language } = this.props;
         return (
             <>
@@ -163,7 +163,7 @@ class DoctorSchedule extends Component {
                         </div>
                     </div>
                 </div >
-                <BookingModal isOpenModalBooking={this.state.isOpenModalBooking} closeBookingModal={this.closeBookingModal} dataScheduleTimeModal={this.state.dataScheduleTimeModal} />
+                <BookingModal isOpenModalBooking={this.state.isOpenModalBooking} closeBookingModal={this.closeBookingModal} dataTime={this.state.dataScheduleTimeModal} />
             </>
         );
     }

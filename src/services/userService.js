@@ -43,6 +43,9 @@ const bulkCreateSchedule = (data) => {
 const getScheduleByDate = (doctorId, date) => {
     return axios.get(`/api/get-schedule-by-date?doctorId=${doctorId}&date=${date}`);
 }
+const getProfileDoctorById = (doctorId) => {
+    return axios.get(`/api/get-profile-doctor-by-id?doctorId=${doctorId}`);
+}
 export {
     handleLogiApi,
     getAllUser,
@@ -57,5 +60,6 @@ export {
     getMarkDownByIdDoctor,
     bulkCreateSchedule,
     getScheduleByDate,
-    getdoctorInforByIdDoctor
+    getdoctorInforByIdDoctor,
+    getProfileDoctorById
 }
