@@ -10,6 +10,7 @@ import * as actions from '../../../../store/actions'
 import { LANGUAGES } from '../../../../utils';
 import { postBookAppointment } from '../../../../services/userService';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 class BookingModal extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +24,8 @@ class BookingModal extends Component {
             gender: '',
             doctorId: '',
             genders: [],
-            timeType: ''
+            timeType: '',
+            doctorName: ''
         }
     }
     async componentDidMount() {
@@ -39,16 +41,22 @@ class BookingModal extends Component {
                 genders: this.props.genders
             })
         }
-        if (this.props.dataTime !== prevProps.dataTime) {
-            //console.log(111111111, this.props.dataTime)
-
+        if (this.props.dataTime !== prevProps.dataTime || this.props.language !== prevProps.language) {
             let dataTime = this.props.dataTime;
             if (dataTime && !_.isEmpty(dataTime)) {
                 let doctorId = dataTime.doctorId;
                 let timeType = dataTime.timeType;
+                let language = this.props.language;
+                console.log('language', language)
+                let doctorName = language === LANGUAGES.VI ?
+                    `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
+                    :
+                    `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}`
+                console.log('doctorName', doctorName);
                 this.setState({
                     doctorId: doctorId,
-                    timeType: timeType
+                    timeType: timeType,
+                    doctorName: doctorName
                 })
             }
         }
@@ -65,9 +73,28 @@ class BookingModal extends Component {
             birthday: date[0]
         })
     }
+    capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    buildTimeBooking = (dataTime) => {
+        let { language } = this.props;
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let date = language === LANGUAGES.VI ?
+                this.capitalizeFirstLetter(moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY'))
+                :
+                moment.unix(+dataTime.date / 1000).locale('en').format('ddd - MM/DD/YYYY')
+                ;
+            let times = language === LANGUAGES.VI ? dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn;
+            return `${times} - ${date}`
+
+        }
+        return '';
+
+    }
     handleConfirmBooking = async () => {
         //validate input
         let date = new Date(this.state.birthday).getTime();
+        let timeString = this.buildTimeBooking(this.props.dataTime);
         let res = await postBookAppointment({
             fullName: this.state.fullName,
             phoneNumber: this.state.phoneNumber,
@@ -77,7 +104,10 @@ class BookingModal extends Component {
             date: date,
             gender: this.state.gender,
             doctorId: this.state.doctorId,
-            timeType: this.state.timeType
+            timeType: this.state.timeType,
+            language: this.props.language,
+            timeString: timeString,
+            doctorName: this.state.doctorName
         });
         if (res && res.errCode === 0) {
             toast.success("Booking a new appointment succeed!");
@@ -174,7 +204,7 @@ class BookingModal extends Component {
                                 <label><FormattedMessage id="patient.booking-modal.gender" /></label>
                                 <select className='form-select' name={'gender'}
                                     onChange={(event) => this.handleOnchangeInput(event)}
-                                    value={''}
+                                    value={this.state.gender}
                                 >
                                     <option value={''} >
                                         Chọn giới tính

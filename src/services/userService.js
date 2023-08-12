@@ -41,7 +41,7 @@ const bulkCreateSchedule = (data) => {
     return axios.post(`/api/bulk-create-schedule`, data);
 }
 const getScheduleByDate = (doctorId, date) => {
-    return axios.get(`/api/get-schedule-by-date?doctorId=${doctorId}&date=${date}`);
+    return axios.get(`/api/get-schedule-doctor-by-date?doctorId=${doctorId}&date=${date}`);
 }
 const getProfileDoctorById = (doctorId) => {
     return axios.get(`/api/get-profile-doctor-by-id?doctorId=${doctorId}`);
