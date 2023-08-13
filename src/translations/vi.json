@@ -71,7 +71,9 @@
         "choose-provice": "Tỉnh thành",
         "clinic-name": "Tên phòng khám",
         "address-clinic": "Địa chỉ phòng khám",
-        "note": "Ghi chú"
+        "note": "Ghi chú",
+        "specialty": "Chuyên khoa",
+        "clinic": "Phòng khám"
     },
     "manage-schedule": {
         "title": "Quản lý kế hoạch khám bệnh của bác sĩ",

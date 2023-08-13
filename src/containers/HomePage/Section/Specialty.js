@@ -4,7 +4,7 @@ import './Specialty.scss';
 import { FormattedMessage } from 'react-intl';
 import Slider from "react-slick";
 import { getAllSpecialties } from '../../../services/userService';
-
+import { withRouter } from 'react-router';
 // Import css files
 //import "slick-carousel/slick/slick.css";
 //import "slick-carousel/slick/slick-theme.css";
@@ -25,6 +25,11 @@ class Specialty extends Component {
         }
 
     }
+    handleViewDetailSpecialty = (item) => {
+        //console.log('view infor', doctor);
+        this.props.history.push(`/detail-specialty/${item.id}`);
+    }
+
     render() {
         let { settings } = this.props;
         let { dataSpecialties } = this.state;
@@ -41,7 +46,11 @@ class Specialty extends Component {
                             {dataSpecialties && dataSpecialties.length > 0 &&
                                 dataSpecialties.map((item, index) => {
                                     return (
-                                        <div className="section-customize" key={index}>
+                                        <div
+                                            className="section-customize"
+                                            key={index}
+                                            onClick={() => this.handleViewDetailSpecialty(item)}
+                                        >
                                             <div className='bg-image section-specialty'
                                                 style={{ backgroundImage: `url(${item.image})` }}
                                             ></div>
@@ -75,4 +84,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Specialty));
