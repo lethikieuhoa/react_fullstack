@@ -1,0 +1,105 @@
+@import "~slick-carousel/slick/slick.scss";
+@import "~slick-carousel/slick/slick-theme.scss";
+
+.section-specialty {
+    height: 330px;
+    background: #f5f5f5;
+
+    .specialty-container {
+        margin: 0 100px;
+        display: flex;
+        flex-direction: column;
+
+        .specialty-header {
+            height: 60px;
+            margin-top: 30px;
+            padding-bottom: 30px;
+
+            .title-section {
+                font-size: 27px;
+                font-weight: 600;
+            }
+
+            .btn-section {
+                float: right;
+                border: none;
+                outline: none;
+                padding: 10px 15px;
+                background: #ebebeb;
+                display: block;
+                color: #282e41;
+                text-transform: uppercase;
+
+                &:hover {
+                    background: #FFC419;
+                }
+            }
+        }
+
+        .specialty-body {
+            .specialty-customize {
+                //border: 1px solid rgb(0, 208, 255);
+                cursor: pointer;
+
+                .bg-image {
+                    background: url('../../../assets/specialty/co-xuong-khop.jpg') center center no-repeat;
+                    width: 278px;
+                    height: 150px;
+                    background-size: cover;
+                    background-color: #eee;
+                }
+
+                .specialty-name {
+                    padding: 10px 0;
+                    color: red;
+
+                    &:hover {
+                        color: #45c3d2;
+                    }
+                }
+
+            }
+
+            //reset slick slider css
+            .slick-prev {
+                border: 2px solid #d7d7d7 !important;
+                left: -10px !important;
+                z-index: 1000 !important;
+
+                width: 40px !important;
+                height: 40px !important;
+                //background: transparent;
+                background: #fff !important;
+
+                &:hover {
+                    background: #eceaea !important;
+                }
+            }
+
+            .slick-next {
+                border: 2px solid #d7d7d7 !important;
+                //position: relative !important;
+                right: -10 !important;
+                width: 40px !important;
+                height: 40px !important;
+                background: #fff !important;
+
+                //background: transparent;
+                &:hover {
+                    background: #eceaea !important;
+                }
+            }
+
+            .slick-prev::before,
+            .slick-next::before {
+                font-family: 'Glyphicons Halflings' !important;
+                font-style: normal;
+                font-weight: 400;
+                background: transparent;
+                text-align: center;
+                color: #959595 !important;
+            }
+
+        }
+    }
+}

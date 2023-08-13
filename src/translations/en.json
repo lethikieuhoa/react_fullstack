@@ -57,7 +57,8 @@
     "home-page": {
         "out-standing-doctor": "Last week's featured doctor",
         "more-infor": "More infor",
-        "search": "Search"
+        "search": "Search",
+        "speciality-popular": "Popular specialties"
     },
     "manage-doctor": {
         "manage-doctor-title": "Create information of doctor",
