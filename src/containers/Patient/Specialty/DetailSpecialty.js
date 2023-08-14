@@ -107,14 +107,6 @@ class DetailSpecialty extends Component {
 
             })
         }
-
-
-
-
-
-
-
-
     }
     render() {
         let { arrDoctorId, DetailSpecialties, listProvice } = this.state;

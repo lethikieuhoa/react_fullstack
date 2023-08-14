@@ -23,7 +23,6 @@ class Specialty extends Component {
                 dataSpecialties: res.data
             })
         }
-
     }
     handleViewDetailSpecialty = (item) => {
         //console.log('view infor', doctor);
@@ -53,7 +52,7 @@ class Specialty extends Component {
                                         >
                                             <div className='bg-image section-specialty'
                                                 style={{ backgroundImage: `url(${item.image})` }}
-                                            ></div>
+                                            />
                                             <div className='specialty-name'>{item.name}</div>
                                         </div>
                                     )
