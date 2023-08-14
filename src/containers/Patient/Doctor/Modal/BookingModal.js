@@ -127,7 +127,7 @@ class BookingModal extends Component {
         //     })
         // }
         let genders = this.state.genders;
-        console.log('state', this.state);
+        //console.log('state', this.state);
 
         return (//this.props.isOpen
             <Modal
@@ -149,6 +149,8 @@ class BookingModal extends Component {
                                 doctorId={doctorId}
                                 isShowDesDoctor={false}
                                 dataTime={dataTime}
+                                isShowLinkDetail={false}
+                                isShowPrice={true}
                             />
                         </div>
 

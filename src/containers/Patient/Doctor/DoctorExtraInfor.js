@@ -10,12 +10,18 @@ class DoctorExtraInfor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowDetailInfor: true,
+            isShowDetailInfor: false,
             extraInfor: {}
         }
     }
     async componentDidMount() {
         //let resDocInfor = await getdoctorInforByIdDoctor(selectedOption.value);
+        let resDocInfor = await getdoctorInforByIdDoctor(this.props.doctorIdFromParent);
+        if (resDocInfor && resDocInfor.errCode === 0 && resDocInfor.data) {
+            this.setState({
+                extraInfor: resDocInfor.data
+            })
+        }
 
     }
     async componentDidUpdate(prevProps, prevState) {
