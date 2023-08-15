@@ -97,7 +97,7 @@ class ManagePatient extends Component {
     showTablesss(dataPatient) {
         console.log('dataPatient', dataPatient);
         let language = this.props.language;
-        let i = 1;
+        let i = 0;
         return Object.keys(dataPatient).map((k) => {
             let data = dataPatient[k];
             let booking = data.booking ? data.booking : [];
@@ -119,7 +119,7 @@ class ManagePatient extends Component {
             return booking.map((item, index) =>
                 index === 0 ? (
                     <tr key={`${k}${index}`}>
-                        <td rowSpan={booking.length}>{k}</td>
+                        <td rowSpan={booking.length}>{i}</td>
                         <td rowSpan={booking.length}>{data.firstName}</td>
                         <td rowSpan={booking.length} >{data.address}</td>
                         <td rowSpan={booking.length}>{gender}</td>
